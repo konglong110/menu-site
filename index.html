@@ -82,6 +82,7 @@
       max-width: 200px;
       text-align: center;
       font-weight: 600;
+      font-size: 1rem;
       color: #4a3928;
       box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
       transition: all 0.25s ease;
@@ -131,12 +132,58 @@
       background-color: #e6d6c1 !important;
     }
 
+    /* 响应式适配：移动端 */
     @media (max-width: 768px) {
+      body {
+        padding: 0 1rem;
+      }
+
+      .menu-wrapper {
+        margin: 1.5rem auto;
+        padding: 1.5rem;
+        border-radius: 16px;
+      }
+
+      header {
+        margin-bottom: 1.5rem;
+      }
+
+      .header-image {
+        max-height: 120px;
+      }
+
+      .category h2 {
+        font-size: 1.25rem;
+        padding-bottom: 0.3rem;
+      }
+
       .dishes {
         gap: 1rem;
       }
+
       .dish {
         flex-basis: 48%;
+        max-width: 48%;
+        font-size: 0.95rem;
+        padding: 0.8rem 1rem;
+      }
+
+      .total-count {
+        font-size: 0.95rem;
+        padding: 0.6rem 1.5rem;
+      }
+
+      #recommendation button {
+        padding: 0.5rem 1.2rem;
+        font-size: 0.95rem;
+      }
+    }
+
+    /* 极小屏幕下，一列显示 */
+    @media (max-width: 480px) {
+      .dish {
+        flex-basis: 100%;
+        max-width: 100%;
       }
     }
   </style>
@@ -213,7 +260,6 @@
 
         if (availableDishes.length === 0) continue;
 
-        // 收集用于推荐
         allAvailableDishes.push(...availableDishes.map(d => ({ ...d, category: category.name })));
 
         const section = document.createElement('div');
@@ -240,9 +286,8 @@
 
       totalEl.textContent = `共 ${totalCount} 道菜品`;
 
-      renderRecommendations(); // 首次渲染推荐
+      renderRecommendations();
 
-      // 显示内容，隐藏加载动画
       document.getElementById('loader').style.display = 'none';
       menuEl.style.opacity = 1;
       totalEl.style.opacity = 1;
