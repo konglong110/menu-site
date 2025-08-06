@@ -1,0 +1,103 @@
+{
+  "categories": {
+    "beef": {
+      "name": "牛肉类",
+      "icon": "🥩",
+      "dishes": [
+        { "name": "秋葵炒牛肉", "available": true },
+        { "name": "西芹炒牛肉", "available": true },
+        { "name": "香菜炒牛肉", "available": true },
+        { "name": "苦瓜炒牛肉", "available": true },
+        { "name": "莴笋炒牛肉", "available": true },
+        { "name": "炒卤牛肉", "available": true }
+      ]
+    },
+    "seafood": {
+      "name": "海鲜类",
+      "icon": "🦐",
+      "dishes": [
+        { "name": "葱姜炒花甲", "available": true },
+        { "name": "葱姜炒螃蟹", "available": true },
+        { "name": "葱姜炒鲈鱼", "available": true },
+        { "name": "清蒸鱼", "available": true },
+        { "name": "炒碎鲫鱼", "available": true },
+        { "name": "小番茄炒鱼", "available": true },
+        { "name": "油焖大虾", "available": true },
+        { "name": "香辣大虾", "available": true },
+        { "name": "空气炸锅烤鱼", "available": true },
+        { "name": "空气炸锅鸡翅虾", "available": true }
+      ]
+    },
+    "pork": {
+      "name": "猪肉类",
+      "icon": "🥓",
+      "dishes": [
+        { "name": "空心菜干炒肉", "available": true },
+        { "name": "攸县香干炒肉", "available": true },
+        { "name": "四季豆炒肉", "available": true },
+        { "name": "花菜炒肉", "available": true },
+        { "name": "藠头炒肉", "available": true },
+        { "name": "三丝炒肉", "available": true },
+        { "name": "辣椒炒肉", "available": true },
+        { "name": "豆角炒肉", "available": true },
+        { "name": "蒜苔炒肉", "available": true },
+        { "name": "萝卜炒肉", "available": true },
+        { "name": "莴笋炒肉", "available": true },
+        { "name": "鹿茸菇炒肉", "available": true },
+        { "name": "土豆片炒肉", "available": true },
+        { "name": "韭菜花炒肉", "available": true },
+        { "name": "青椒火腿肠炒肉", "available": true },
+        { "name": "定豆腐肉沫", "available": true },
+        { "name": "冬瓜炒肉沫", "available": true },
+        { "name": "藕片炒肉沫", "available": true }
+      ]
+    },
+    "ribs": {
+      "name": "排骨类",
+      "icon": "🍖",
+      "dishes": [
+        { "name": "清蒸排骨", "available": true },
+        { "name": "香菇焖排骨", "available": true },
+        { "name": "清炒排骨", "available": true }
+      ]
+    },
+    "chicken": {
+      "name": "鸡肉类",
+      "icon": "🐔",
+      "dishes": [
+        { "name": "老姜炒鸡", "available": true },
+        { "name": "青椒炒鸡", "available": true }
+      ]
+    },
+    "eggs": {
+      "name": "蛋类",
+      "icon": "🥚",
+      "dishes": [
+        { "name": "丝瓜窜蛋", "available": true },
+        { "name": "豆浆煎蛋", "available": true },
+        { "name": "葱花煎蛋", "available": true }
+      ]
+    },
+    "vegetarian": {
+      "name": "素食类",
+      "icon": "🥬",
+      "dishes": [
+        { "name": "酸辣魔芋", "available": true },
+        { "name": "酸辣土豆丝", "available": true },
+        { "name": "清炒南瓜片", "available": true },
+        { "name": "干煸豆角", "available": true },
+        { "name": "煎茄子", "available": true },
+        { "name": "包菜炒粉丝", "available": true },
+        { "name": "白灼青菜", "available": true }
+      ]
+    },
+    "staples": {
+      "name": "主食类",
+      "icon": "🍜",
+      "dishes": [
+        { "name": "空气炸锅干炒牛河", "available": true },
+        { "name": "鲜茄焗意面", "available": true }
+      ]
+    }
+  }
+}

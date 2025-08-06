@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="zh">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>私厨小馆 · 精致菜单</title>
+  <link rel="icon" href="favicon_32x32.png" sizes="32x32" type="image/png">
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Noto+Sans+SC&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #f5f4f1;
+      font-family: 'Noto Sans SC', sans-serif;
+      color: #2f2f2f;
+    }
+
+    .menu-wrapper {
+      max-width: 960px;
+      margin: 3rem auto;
+      padding: 2rem;
+      border-radius: 24px;
+      background: rgba(255, 255, 255, 0.85);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.05);
+      backdrop-filter: blur(8px);
+      border: 1px solid #e2dccf;
+      position: relative;
+    }
+
+    header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .header-image {
+      max-width: 100%;
+      height: auto;
+      max-height: 200px;
+      object-fit: contain;
+      margin: 0 auto;
+      display: block;
+    }
+
+    .total-count {
+      background: #f6efe6;
+      border: 1px solid #e1d2be;
+      border-radius: 48px;
+      padding: 0.8rem 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      text-align: center;
+      color: #6c4d30;
+      margin: 2rem auto;
+      width: fit-content;
+    }
+
+    .category {
+      margin-bottom: 2.5rem;
+    }
+
+    .category h2 {
+      font-size: 1.6rem;
+      font-weight: bold;
+      color: #7a5c3e;
+      border-bottom: 1px solid #dfcbb3;
+      padding-bottom: 0.4rem;
+      margin-bottom: 1rem;
+    }
+
+    .dishes {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+    }
+
+    .dish {
+      background: rgba(255, 255, 255, 0.85);
+      border: 1px solid #e9e2d5;
+      border-radius: 16px;
+      padding: 1rem 1.5rem;
+      flex: 1 1 160px;
+      max-width: 200px;
+      text-align: center;
+      font-weight: 600;
+      color: #4a3928;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+      transition: all 0.25s ease;
+    }
+
+    .dish:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 24px rgba(0, 0, 0, 0.08);
+      background: #faf7f2;
+      border-color: #c7a27c;
+    }
+
+    /* 加载动画样式 */
+    #loader {
+      position: absolute;
+      top: 48%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 10;
+    }
+
+    .spinner {
+      width: 40px;
+      height: 40px;
+      border: 4px solid rgba(200, 180, 160, 0.3);
+      border-top-color: #a3865e;
+      border-radius: 50%;
+      animation: spin 1s linear infinite;
+    }
+
+    @keyframes spin {
+      to {
+        transform: rotate(360deg);
+      }
+    }
+
+    #menu,
+    #total {
+      opacity: 0;
+      transition: opacity 0.4s ease-in;
+    }
+
+    button:hover {
+      background-color: #e6d6c1 !important;
+    }
+
+    @media (max-width: 768px) {
+      .dishes {
+        gap: 1rem;
+      }
+      .dish {
+        flex-basis: 48%;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="menu-wrapper">
+    <!-- 加载动画容器 -->
+    <div id="loader">
+      <div class="spinner"></div>
+    </div>
+
+    <header>
+      <img src="20250729172945.png" alt="私厨小馆标题图片" class="header-image">
+    </header>
+
+    <!-- 今日推荐模块 -->
+    <div id="recommendation" class="category">
+      <h2>🎯 今日推荐</h2>
+      <div id="recommendation-list" class="dishes"></div>
+      <div style="text-align: center; margin-top: 1rem;">
+        <button onclick="renderRecommendations()" style="
+          background-color: #f2e5d2;
+          color: #5c4329;
+          border: 1px solid #e2d0b5;
+          padding: 0.6rem 1.4rem;
+          border-radius: 32px;
+          font-weight: 600;
+          cursor: pointer;
+          transition: all 0.3s ease;
+        ">🔁 换一批</button>
+      </div>
+    </div>
+
+    <div class="container">
+      <div id="menu"></div>
+      <div id="total" class="total-count">共 0 道菜品</div>
+    </div>
+  </div>
+
+  <script>
+    let allAvailableDishes = [];
+
+    function getRandomDishes(list, count) {
+      const shuffled = [...list].sort(() => 0.5 - Math.random());
+      return shuffled.slice(0, count);
+    }
+
+    function renderRecommendations() {
+      const recEl = document.getElementById('recommendation-list');
+      recEl.innerHTML = '';
+
+      const recCount = Math.floor(Math.random() * 3) + 3; // 3~5 道
+      const selected = getRandomDishes(allAvailableDishes, recCount);
+
+      for (const dish of selected) {
+        const el = document.createElement('div');
+        el.className = 'dish';
+        el.textContent = dish.name;
+        recEl.appendChild(el);
+      }
+    }
+
+    async function loadMenu() {
+      const response = await fetch('menu_categories.json');
+      const data = await response.json();
+
+      const menuEl = document.getElementById('menu');
+      const totalEl = document.getElementById('total');
+      let totalCount = 0;
+
+      for (const key in data.categories) {
+        const category = data.categories[key];
+        const availableDishes = category.dishes.filter(d => d.available);
+
+        if (availableDishes.length === 0) continue;
+
+        // 收集用于推荐
+        allAvailableDishes.push(...availableDishes.map(d => ({ ...d, category: category.name })));
+
+        const section = document.createElement('div');
+        section.className = 'category';
+
+        const title = document.createElement('h2');
+        title.textContent = `${category.icon || ''} ${category.name}`;
+        section.appendChild(title);
+
+        const dishList = document.createElement('div');
+        dishList.className = 'dishes';
+
+        for (const dish of availableDishes) {
+          const dishEl = document.createElement('div');
+          dishEl.className = 'dish';
+          dishEl.textContent = dish.name;
+          dishList.appendChild(dishEl);
+        }
+
+        section.appendChild(dishList);
+        menuEl.appendChild(section);
+        totalCount += availableDishes.length;
+      }
+
+      totalEl.textContent = `共 ${totalCount} 道菜品`;
+
+      renderRecommendations(); // 首次渲染推荐
+
+      // 显示内容，隐藏加载动画
+      document.getElementById('loader').style.display = 'none';
+      menuEl.style.opacity = 1;
+      totalEl.style.opacity = 1;
+    }
+
+    window.addEventListener('DOMContentLoaded', loadMenu);
+  </script>
+</body>
+</html>
